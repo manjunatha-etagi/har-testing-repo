@@ -15,10 +15,7 @@ COPY largefile2.zip /app/largefile2.zip
 COPY largefile3.zip /app/largefile3.zip
 
 # Step 4: Unzip the large files and clean up zip files
-RUN unzip /app/largefile1.zip -d /app/ && \
-    unzip /app/largefile2.zip -d /app/ && \
-    unzip /app/largefile3.zip -d /app/ && \
-    rm /app/*.zip
+RUN rm /app/*.zip
 
 # Step 5: Install Python requirements
 COPY requirements.txt /app/requirements.txt
