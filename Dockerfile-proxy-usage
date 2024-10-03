@@ -1,4 +1,4 @@
-FROM shivanandsonnad.pkg.pr2.harness.io/nginx:latest
+FROM shivanandsonnad.pkg.pr2.harness.io/iyrxmpz6tpwdllx-vliz4w/test-registry/nginx:latest
 # Your application code or additional layers
 COPY ./myapp /usr/share/nginx/html
 EXPOSE 80
