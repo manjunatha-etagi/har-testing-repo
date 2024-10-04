@@ -1,5 +1,19 @@
+# First stage: Use a simple image (Alpine) to pull and copy files
+FROM shivanandsonnad.pkg.pr2.harness.io/iyrxmpz6tpwdllx-vliz4w/test-registry/library/alpine:latest as simple-image
+# Example: Creating a file in this image that we will use in the next stage
+RUN echo "This is a simple file from the Alpine image" > /simplefile.txt
+
+# Second stage: Use your main NGINX-based image
 FROM shivanandsonnad.pkg.pr2.harness.io/iyrxmpz6tpwdllx-vliz4w/test-registry/library/nginx:latest
-# Your application code or additional layers
+
+# Copy your application code or additional layers
 COPY ./myapp /usr/share/nginx/html
+
+# Copy the file created in the first stage (from the simple Alpine image)
+COPY --from=simple-image /simplefile.txt /usr/share/nginx/html/simplefile.txt
+
+# Expose the necessary port
 EXPOSE 80
+
+# Run the NGINX server
 CMD ["nginx", "-g", "daemon off;"]
