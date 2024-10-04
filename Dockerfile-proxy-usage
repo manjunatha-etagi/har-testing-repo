@@ -1,16 +1,31 @@
-# First stage: Use a simple image (Alpine) to pull and copy files
-FROM shivanandsonnad.pkg.pr2.harness.io/iyrxmpz6tpwdllx-vliz4w/test-registry/library/alpine:latest as simple-image
-# Example: Creating a file in this image that we will use in the next stage
-RUN echo "This is a simple file from the Alpine image" > /simplefile.txt
-
-# Second stage: Use your main NGINX-based image
-FROM shivanandsonnad.pkg.pr2.harness.io/iyrxmpz6tpwdllx-vliz4w/test-registry/library/nginx:latest
-
-# Copy your application code or additional layers
+# First stage: Use NGINX base image from your artifact registry
+FROM shivanandsonnad.pkg.pr2.harness.io/iyrxmpz6tpwdllx-vliz4w/test-registry/library/nginx:latest as nginx-stage
+# Copy your application files to the NGINX document root
 COPY ./myapp /usr/share/nginx/html
 
-# Copy the file created in the first stage (from the simple Alpine image)
-COPY --from=simple-image /simplefile.txt /usr/share/nginx/html/simplefile.txt
+# Second stage: Use BusyBox with Alpine for lightweight operations
+FROM busybox:1.35.0-uclibc as busybox-stage
+# Create a simple file inside BusyBox
+RUN echo "Hello from BusyBox (Alpine-based)!" > /busyboxfile.txt
+
+# Third stage: Use Alpine Linux for additional dependencies or operations
+FROM alpine:3.18 as alpine-stage
+# Install additional tools or dependencies (if needed)
+RUN apk add --no-cache curl
+# Create another example file to be used later
+RUN echo "Hello from Alpine!" > /alpinefile.txt
+
+# Final stage: Combine everything into the NGINX base
+FROM shivanandsonnad.pkg.pr2.harness.io/iyrxmpz6tpwdllx-vliz4w/test-registry/library/nginx:latest
+
+# Copy the application from the first NGINX stage
+COPY --from=nginx-stage /usr/share/nginx/html /usr/share/nginx/html
+
+# Copy the file from the BusyBox stage
+COPY --from=busybox-stage /busyboxfile.txt /usr/share/nginx/html/busyboxfile.txt
+
+# Copy the file from the Alpine stage
+COPY --from=alpine-stage /alpinefile.txt /usr/share/nginx/html/alpinefile.txt
 
 # Expose the necessary port
 EXPOSE 80
