@@ -129,13 +129,5 @@ RUN echo "Layer 124" > /layer_124.txt
 RUN echo "Layer 125" > /layer_125.txt
 RUN echo "Layer 126" > /layer_126.txt
 RUN echo "Layer 127" > /layer_127.txt
-RUN echo "Layer 128" > /layer_128.txt
-RUN echo "Layer 129" > /layer_129.txt
-RUN echo "Layer 130" > /layer_130.txt
-RUN echo "Layer 131" > /layer_131.txt
-RUN echo "Layer 132" > /layer_132.txt
-RUN echo "Layer 133" > /layer_133.txt
-RUN echo "Layer 134" > /layer_134.txt
-RUN echo "Layer 135" > /layer_135.txt
 # Final command to indicate successful build
 CMD ["echo", "Image with a large number of layers created!"]
