@@ -1,5 +1,5 @@
 # First stage: Use NGINX base image from your artifact registry
-FROM shivanandsonnad.pkg.pr2.harness.io/iyrxmpz6tpwdllx-vliz4w/test-registry/library/nginx:latest as nginx-stage
+FROM shivanandsonnad.pkg.pr2.harness.io/ZDFBwyZMQMSnLSa1R2EE8g/docker_registry_remote_proxy_docker_anon/library/nginx:latest as nginx-stage
 # Copy your application files to the NGINX document root
 COPY ./myapp /usr/share/nginx/html
 
@@ -16,7 +16,7 @@ RUN apk add --no-cache curl
 RUN echo "Hello from Alpine!" > /alpinefile.txt
 
 # Final stage: Combine everything into the NGINX base
-FROM shivanandsonnad.pkg.pr2.harness.io/iyrxmpz6tpwdllx-vliz4w/test-registry/library/nginx:latest
+FROM shivanandsonnad.pkg.pr2.harness.io/ZDFBwyZMQMSnLSa1R2EE8g/docker_registry_remote_proxy_docker_anon/library/nginx:latest
 
 # Copy the application from the first NGINX stage
 COPY --from=nginx-stage /usr/share/nginx/html /usr/share/nginx/html
