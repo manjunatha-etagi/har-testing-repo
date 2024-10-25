@@ -17,7 +17,7 @@ WORKDIR /app
 RUN yarn install
 COPY package.json ./
 COPY . .
-RUN yarn build
+#RUN yarn build
 
 # Stage 2: NGINX server
 FROM nginx:1.23-alpine
