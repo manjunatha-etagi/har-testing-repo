@@ -14,8 +14,8 @@ ENV APP_ENV=$APP_ENV
 WORKDIR /app
 
 # Install dependencies and build the app
-COPY package.json yarn.lock ./
 RUN yarn install
+COPY package.json yarn.lock ./
 COPY . .
 RUN yarn build
 
