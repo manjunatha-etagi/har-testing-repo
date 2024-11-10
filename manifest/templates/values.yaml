@@ -1,0 +1,9 @@
+name: default
+replicas: 1
+
+container:
+  image: ${artifact.metadata.image}
+  port: 80
+
+config:
+  env: default
