@@ -28,7 +28,7 @@ jobs:
       - name: Build the Docker image
         run: |
           IMAGE_NAME="pkg.harness.io/ikpsjoavtcwxnqisy2bpfa/githubactions/githubactions"
-          TAG=$(date +%Y%m%d%H%M%S) # Timestamp-based tag
+          TAG=test1 # Timestamp-based tag
           docker build . --file Dockerfile --tag $IMAGE_NAME:$TAG
           echo "Image built: $IMAGE_NAME:$TAG"
 
@@ -36,5 +36,5 @@ jobs:
       - name: Push the Docker image
         run: |
           IMAGE_NAME="pkg.harness.io/ikpsjoavtcwxnqisy2bpfa/githubactions/githubactions"
-          TAG=$(date +%Y%m%d%H%M%S) # Same tag as above
+          TAG=test1 # Same tag as above
           docker push $IMAGE_NAME:$TAG
