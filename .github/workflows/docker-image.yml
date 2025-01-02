@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v4
 
       # Step 2: Log in to the Docker registry
-      - name: Log in to Docker Registry
+      - name: Log in to Har Registry
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
