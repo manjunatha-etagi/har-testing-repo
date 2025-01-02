@@ -22,12 +22,12 @@ jobs:
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        run: echo "$DOCKER_PASSWORD" | docker login pkg.qa.harness.io -u "$DOCKER_USERNAME" --password-stdin
+        run: echo "$DOCKER_PASSWORD" | docker login pkg.harness.io -u "$DOCKER_USERNAME" --password-stdin
 
       # Step 3: Build the Docker image
       - name: Build the Docker image
         run: |
-          IMAGE_NAME="pkg.qa.harness.io/iwnhltqot7gft7r-f_zp7q/githubactions/githubactions"
+          IMAGE_NAME="pkg.harness.io/ikpsjoavtcwxnqisy2bpfa/githubactions/githubactions"
           TAG=$(date +%Y%m%d%H%M%S) # Timestamp-based tag
           docker build . --file Dockerfile --tag $IMAGE_NAME:$TAG
           echo "Image built: $IMAGE_NAME:$TAG"
@@ -35,6 +35,6 @@ jobs:
       # Step 4: Push the Docker image to the third-party registry
       - name: Push the Docker image
         run: |
-          IMAGE_NAME="pkg.qa.harness.io/iwnhltqot7gft7r-f_zp7q/githubactions/githubactions"
+          IMAGE_NAME="pkg.harness.io/ikpsjoavtcwxnqisy2bpfa/githubactions/githubactions"
           TAG=$(date +%Y%m%d%H%M%S) # Same tag as above
           docker push $IMAGE_NAME:$TAG
